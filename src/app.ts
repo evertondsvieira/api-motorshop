@@ -9,4 +9,4 @@ app.use(express.json());
 app.use("/users", userRouters);
 app.use(handleErrorMidleware);
 
-export default app;
+export default app
