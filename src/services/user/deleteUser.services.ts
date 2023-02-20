@@ -3,13 +3,12 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
 
-export default async function listDetailsUserService(id: string) {
+export default async function deleteUserService(id: string) {
   try {
     const userRepository = AppDataSource.getRepository(User);
+    const user = await userRepository.findOneByOrFail({ id: id });
 
-    const user = await userRepository.findOneByOrFail({
-      id: id,
-    });
+    await userRepository.delete(id);
 
     return user;
   } catch (err) {
