@@ -58,6 +58,16 @@ export default async function createUserService(body: IUserRequest) {
     }
   }
 
+  if (body.address.cep) {
+    const regex = /^(\d{5}-\d{3})|(\d{8})$/;
+
+    if (!regex.test(body.address.cep)) {
+      throw new AppError(
+        "provide a valid cep, in format XXXXX-XXX or XXXXXXXX"
+      );
+    }
+  }
+
   const cpfAlreadyExists = await userRepository.findOneBy({
     cpf: body.cpf,
   });
