@@ -7,3 +7,5 @@ userRouters.get("/:id");
 userRouters.post("", createUserController);
 userRouters.patch("");
 userRouters.delete("");
+
+export default userRouters;
