@@ -21,11 +21,11 @@ class User {
   @Column({ length: 78, unique: true })
   email: string;
 
-  @Column({ length: 14 })
+  @Column({ length: 14, unique: true })
   cpf: string;
 
-  @Column({ length: 11 })
-  cellPhone: number;
+  @Column({ length: 16, unique: true })
+  cellPhone: string;
 
   @Column({ length: 350 })
   description: string;

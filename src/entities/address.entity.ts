@@ -1,14 +1,4 @@
-import { Exclude } from "class-transformer";
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("addresses")
 class Address {
@@ -16,7 +6,7 @@ class Address {
   readonly id: string;
 
   @Column({ length: 8 })
-  cep: number;
+  cep: string;
 
   @Column({ length: 2 })
   state: string;
@@ -27,7 +17,7 @@ class Address {
   @Column({ length: 50 })
   street: string;
 
-  @Column({ length: 6 })
+  @Column({})
   number: number;
 
   @Column({ length: 200, nullable: true })
