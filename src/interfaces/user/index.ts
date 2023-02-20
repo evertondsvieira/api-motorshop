@@ -5,7 +5,7 @@ export interface IUserRequest {
   email: string;
   password: string;
   cpf: string;
-  cellPhone: number;
+  cellPhone: string;
   dateBirth: Date;
   description: string;
   isActive: boolean;
