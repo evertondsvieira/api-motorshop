@@ -7,6 +7,6 @@ export default async function createUserController(
   res: Response
 ) {
   const user = req.body;
-  const createdUser = createUserService(user);
+  const createdUser = await createUserService(user);
   return res.status(201).json(instanceToPlain(createdUser));
 }
