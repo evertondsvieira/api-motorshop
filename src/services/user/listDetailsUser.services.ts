@@ -1,17 +1,22 @@
+import { EntityNotFoundError } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
 
 export default async function listDetailsUserService(id: string) {
-  const userRepository = AppDataSource.getRepository(User);
+  try {
+    const userRepository = AppDataSource.getRepository(User);
 
-  const user = await userRepository.findOneBy({
-    id: id,
-  });
+    const user = await userRepository.findOneByOrFail({
+      id: id,
+    });
 
-  if (!user) {
-    throw new AppError("User not found", 404);
+    return user;
+  } catch (err) {
+    if (err instanceof EntityNotFoundError) {
+      throw new AppError("User not found", 404);
+    } else {
+      throw new AppError("Internal error", 500);
+    }
   }
-
-  return user;
 }
