@@ -1,30 +1,27 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column
-} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("address")
+@Entity("addresses")
+class Address {
+  @PrimaryGeneratedColumn("increment")
+  readonly id: string;
 
-export class Address {
-    @PrimaryGeneratedColumn("uuid")
-    readonly addressId: string
+  @Column({ length: 8 })
+  cep: string;
 
-    @Column({ length: 8 })
-    cep: number
+  @Column({ length: 2 })
+  state: string;
 
-    @Column({ length: 2 })
-    state: string
+  @Column({ length: 30 })
+  city: string;
 
-    @Column({ length: 30 })
-    city: string
+  @Column({ length: 50 })
+  street: string;
 
-    @Column({ length: 50 })
-    street: string
+  @Column({})
+  number: number;
 
-    @Column({ length: 6 })
-    number: number
-
-    @Column({ length: 200 })
-    complement: string
+  @Column({ length: 200, nullable: true })
+  complement: string;
 }
+
+export { Address };
