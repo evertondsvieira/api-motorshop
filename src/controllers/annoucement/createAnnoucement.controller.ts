@@ -1,15 +1,13 @@
-import createAnnoucementService from "../../services/annoucement/createAnnoucement.service";
 import { Request, Response } from "express";
-import { IAnnoucement } from "../../interfaces/annoucement/index"
-
+import createAnnoucementService from "../../services/annoucements/createAnnoucements";
 
 const createAnnoucementController = async (req: Request, res: Response) => {
-    const annoucement: IAnnoucement = req.body
-    const userId = req.params.userId
+  const id = req.user.id;
+  const data = req.body;
 
-    const createAnnoucement = await createAnnoucementService(annoucement, userId)
+  const annoucement = await createAnnoucementService(data, id);
 
-    return res.status(201).json(createAnnoucement)
-}
+  return res.status(201).json(annoucement);
+};
 
-export default createAnnoucementController
+export default createAnnoucementController;

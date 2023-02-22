@@ -17,6 +17,7 @@ const dataSourceConfig = (): DataSourceOptions => ({
   database: process.env.DATABASE,
   logging: true,
   synchronize: false,
+
   entities: [User, Address, Comments, Annoucements],
   migrations: [
     initial1677089430604,

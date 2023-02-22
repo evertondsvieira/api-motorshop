@@ -8,6 +8,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { Address } from "./address.entity";
 import { Comments } from "./comments.entity";
@@ -55,11 +56,13 @@ class User {
   @JoinColumn()
   address: Address;
 
-  @OneToMany(() => Comments, (comments) => comments.user)
-  comments: Comments[]
+  @OneToMany(() => Annoucements, (annoucement) => annoucement.user, {
+    eager: true,
+  })
+  annoucements: Annoucements[];
 
-  @OneToMany(() => Annoucements, (annoucements) => annoucements.user)
-  annoucements: Annoucements[]
+  @OneToMany(() => Comments, (comment) => comment.user)
+  comments: Comments;
 }
 
 export { User };
