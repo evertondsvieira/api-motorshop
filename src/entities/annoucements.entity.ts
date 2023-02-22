@@ -32,13 +32,13 @@ export class Annoucements {
     })
     adType: annoucementRoles
 
-    @Column({ length: 4 })
+    @Column({ type: "int", width: 4 })
     year: number
 
-    @Column({ length: 6 })
+    @Column({ type: "int", width: 6 })
     mileage: number
 
-    @Column()
+    @Column({ type: "decimal", precision: 7, scale: 2 })
     price: number
 
     @Column({ length: 350 })
