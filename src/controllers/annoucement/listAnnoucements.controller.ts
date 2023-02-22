@@ -2,11 +2,11 @@ import listAnnoucementsService from "../../services/annoucement/listAnnoucement.
 import { Request, Response } from "express";
 
 
-const listAnnoucementController = async (req: Request, res: Response) => {
+const listAnnoucementsController = async (req: Request, res: Response) => {
     const { userId } = req.params
-    const listAnnoucement = await listAnnoucementsService(userId)
-    return res.status(200).json(listAnnoucement)
+    const listAnnoucements = await listAnnoucementsService(userId)
+    return res.status(200).json(listAnnoucements);
 }
 
 
-export default listAnnoucementController
+export default listAnnoucementsController;
