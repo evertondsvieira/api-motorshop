@@ -6,8 +6,8 @@ export default async function addressUpdateController(
   req: Request,
   res: Response
 ) {
-  console.log(req);
+  const { id } = req.user;
   const { data } = req.body;
-  //   const createdUser = await addressUpdateService(id, data);
-  //   return res.status(200).json(instanceToPlain(createdUser));
+  const createdUser = await addressUpdateService(id, data);
+  return res.status(200).json(instanceToPlain(createdUser));
 }
