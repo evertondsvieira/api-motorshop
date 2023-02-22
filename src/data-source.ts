@@ -1,10 +1,12 @@
 import { DataSource, DataSourceOptions } from "typeorm";
+import "dotenv/config";
 import { User } from "./entities/user.entity";
 import { Address } from "./entities/address.entity";
-import "dotenv/config";
-import { initial1676902023034 } from "./migrations/1676902023034-initial";
-import { newUniqueFields1676902884541 } from "./migrations/1676902884541-new-unique-fields";
+import { Comments } from "./entities/comments.entity";
 import { Annoucements } from "./entities/annoucements.entity";
+import { initial1677089430604 } from "./migrations/1677089430604-initial";
+import { typeIdComment1677089669843 } from "./migrations/1677089669843-type-id-comment";
+import { typeIdAnnouncement1677090364960 } from "./migrations/1677090364960-type-id-announcement";
 
 const dataSourceConfig = (): DataSourceOptions => ({
   type: "postgres",
@@ -15,8 +17,13 @@ const dataSourceConfig = (): DataSourceOptions => ({
   database: process.env.DATABASE,
   logging: true,
   synchronize: false,
-  entities: [User, Address, Annoucements],
-  migrations: [initial1676902023034, newUniqueFields1676902884541],
+
+  entities: [User, Address, Comments, Annoucements],
+  migrations: [
+    initial1677089430604,
+    typeIdComment1677089669843,
+    typeIdAnnouncement1677090364960,
+  ],
 });
 
 export const AppDataSource = new DataSource(dataSourceConfig());

@@ -4,14 +4,15 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToOne,
+  OneToMany,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
 import { Address } from "./address.entity";
-import { Annoucements } from "./annoucements.entity";
 import { Comments } from "./comments.entity";
+import { Annoucements } from "./annoucements.entity";
 
 @Entity("users")
 class User {
