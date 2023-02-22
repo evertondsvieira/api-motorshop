@@ -10,7 +10,7 @@ const authUserMiddleware = (
   let token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: "Não há token" });
+    throw new AppError("Missing authorization headers");
   }
 
   token = token.split(" ")[1];
