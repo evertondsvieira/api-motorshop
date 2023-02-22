@@ -4,6 +4,7 @@ import { Address } from "./entities/address.entity";
 import "dotenv/config";
 import { initial1676902023034 } from "./migrations/1676902023034-initial";
 import { newUniqueFields1676902884541 } from "./migrations/1676902884541-new-unique-fields";
+import { Annoucements } from "./entities/annoucements.entity";
 
 const dataSourceConfig = (): DataSourceOptions => ({
   type: "postgres",
@@ -14,7 +15,7 @@ const dataSourceConfig = (): DataSourceOptions => ({
   database: process.env.DATABASE,
   logging: true,
   synchronize: false,
-  entities: [User, Address],
+  entities: [User, Address, Annoucements],
   migrations: [initial1676902023034, newUniqueFields1676902884541],
 });
 
