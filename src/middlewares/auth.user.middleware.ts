@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { AppError } from "../errors";
 import jwt from "jsonwebtoken";
 
 const authUserMiddleware = (
@@ -16,7 +17,7 @@ const authUserMiddleware = (
 
   jwt.verify(token, process.env.SECRET_KET as string, (error, decoded: any) => {
     if (error) {
-      return res.status(401).json({ message: "token inválido" });
+      throw new AppError("Unauthorized", 403);
     }
 
     req.user = {
@@ -25,7 +26,7 @@ const authUserMiddleware = (
       isAdvertiser: decoded.isAdvertiser,
     };
 
-    return next();
+    next();
   });
 };
 
