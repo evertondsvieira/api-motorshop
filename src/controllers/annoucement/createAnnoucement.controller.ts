@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import createAnnoucementService from "../../services/annoucement/createAnnoucement.service";
+import createAnnoucementService from "../../services/annoucement/createAnnoucement.services";
 
 const createAnnoucementController = async (req: Request, res: Response) => {
-  const id = req.user.id;
+  const { userId } = req.params;
   const data = req.body;
 
-  const annoucement = await createAnnoucementService(data, id);
+  const annoucement = await createAnnoucementService(data, userId);
 
   return res.status(201).json(annoucement);
 };
