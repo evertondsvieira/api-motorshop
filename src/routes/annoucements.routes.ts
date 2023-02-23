@@ -3,11 +3,11 @@ import createAnnoucementController from "../controllers/annoucement/createAnnouc
 import listAnnoucementsController from "../controllers/annoucement/listAnnoucements.controller";
 import listDatailsAnnoucementController from "../controllers/annoucement/listDatailsAnnoucement.controller";
 
-const annoucementeRoutes = Router();
+const announcementeRoutes = Router();
 
-annoucementeRoutes.post("/:userId", createAnnoucementController);
-annoucementeRoutes.get("/:userId", listAnnoucementsController);
-annoucementeRoutes.get("/:annoucementId", listDatailsAnnoucementController)
+announcementeRoutes.post("/:userId/annoucements", createAnnoucementController);
+announcementeRoutes.get("/:userId/annoucements", listAnnoucementsController);
+announcementeRoutes.get("announcements/:annoucementId", listDatailsAnnoucementController)
 
 
-export default annoucementeRoutes;
+export default announcementeRoutes;

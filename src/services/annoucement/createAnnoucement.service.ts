@@ -1,38 +1,54 @@
-import { AppDataSource } from "../../data-source";
 import { Annoucements } from "../../entities/annoucements.entity";
+import { IAnnoucement, IAnnoucementRequest } from "../../interfaces/annoucement";
+import { EntityNotFoundError } from "typeorm";
+import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
-import { IAnnoucement } from "../../interfaces/annoucement";
 import { AppError } from "../../errors";
 
 
-const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
-    const fieldsRequireds = [
-        "title",
-        "adType",
-        "year",
-        "mileage",
-        "price",
-        "description",
-        "vehicleType",
-        "coverImage",
-    ]
+const createAnnoucementService = async (body: IAnnoucement, id: string) => {
+    try {
 
-    const annoucementRepository = AppDataSource.getRepository(Annoucements)
-    const userRepository = AppDataSource.getRepository(User)
+        const fieldsRequireds = [
+            "title",
+            "adType",
+            "year",
+            "mileage",
+            "price",
+            "description",
+            "vehicleType",
+            "coverImage",
+        ]
 
-    const userFind = await userRepository.findOneBy({ id: userId })
+        const annoucementRepository = AppDataSource.getRepository(Annoucements)
+        const userRepository = AppDataSource.getRepository(User)
 
-    fieldsRequireds.map((field) => {
-        if (!Object.keys(body).includes(field)) {
-            throw new AppError(`${field} is a required field`)
+        const userFind = await userRepository.findOneByOrFail({
+            id: id,
+        });
+
+        fieldsRequireds.map((field) => {
+            if (!Object.keys(body).includes(field)) {
+                throw new AppError(`${field} is a required field`)
+            }
+        })
+
+        const annoucement = await annoucementRepository.save(
+            {
+                ...body,
+                user: userFind!
+            }
+        )
+
+        return annoucement
+
+    } catch (err) {
+        if (err instanceof EntityNotFoundError) {
+            throw new AppError("User not found", 404);
+        } else {
+            throw new AppError("Internal error", 500);
         }
-    })
-
-    const annoucement = annoucementRepository.create({ ...body, user: userFind! })
-
-    await annoucementRepository.save(annoucement)
-
-    return annoucement
+    }
 }
 
 export default createAnnoucementService
