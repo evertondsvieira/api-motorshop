@@ -5,19 +5,19 @@ import listDatailsAnnoucementController from "../controllers/annoucement/listDet
 import updateAnnouncementController from "../controllers/annoucement/updateAnnoucement.controller";
 import authUserMiddleware from "../middlewares/auth.user.middleware";
 
-const annoucementeRoutes = Router();
+const announcementsRoutes = Router();
 
-annoucementeRoutes.post(
+announcementsRoutes.post(
   "/:userId",
   authUserMiddleware,
   createAnnoucementController
 );
-annoucementeRoutes.get("/:userId", listAnnoucementsController);
-annoucementeRoutes.get("/:annoucementId", listDatailsAnnoucementController);
-annoucementeRoutes.patch(
+announcementsRoutes.get("/:userId", listAnnoucementsController);
+announcementsRoutes.get("/:annoucementId", listDatailsAnnoucementController);
+announcementsRoutes.patch(
   "/:annoucementId",
   authUserMiddleware,
   updateAnnouncementController
 );
 
-export default annoucementeRoutes;
+export default announcementsRoutes;
