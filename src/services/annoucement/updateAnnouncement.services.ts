@@ -1,8 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { Annoucements } from "../../entities/annoucements.entity";
 import { User } from "../../entities/user.entity";
-import { AppError } from "../../errors";
-import { IAnnoucement } from "../../interfaces/annoucements";
+import { IAnnoucement } from "../../interfaces/annoucement";
 
 const updateAnnoucementService = async (
   id: string,
