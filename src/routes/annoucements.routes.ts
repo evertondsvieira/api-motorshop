@@ -1,13 +1,23 @@
 import { Router } from "express";
 import createAnnoucementController from "../controllers/annoucement/createAnnoucement.controller";
 import listAnnoucementsController from "../controllers/annoucement/listAnnoucements.controller";
-import listDatailsAnnoucementController from "../controllers/annoucement/listDatailsAnnoucement.controller";
+import listDatailsAnnoucementController from "../controllers/annoucement/listDetailsAnnoucement.controller";
+import updateAnnouncementController from "../controllers/annoucement/updateAnnoucement.controller";
+import authUserMiddleware from "../middlewares/auth.user.middleware";
 
-const announcementeRoutes = Router();
+const announcementsRoutes = Router();
 
-announcementeRoutes.post("/:userId/annoucements", createAnnoucementController);
-announcementeRoutes.get("/:userId/annoucements", listAnnoucementsController);
-announcementeRoutes.get("announcements/:annoucementId", listDatailsAnnoucementController)
+announcementsRoutes.post(
+  "/:userId",
+  authUserMiddleware,
+  createAnnoucementController
+);
+announcementsRoutes.get("/:userId", listAnnoucementsController);
+announcementsRoutes.get("/:annoucementId", listDatailsAnnoucementController);
+announcementsRoutes.patch(
+  "/:annoucementId",
+  authUserMiddleware,
+  updateAnnouncementController
+);
 
-
-export default announcementeRoutes;
+export default announcementsRoutes;
