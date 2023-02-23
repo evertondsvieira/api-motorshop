@@ -5,7 +5,7 @@ class Address {
   @PrimaryGeneratedColumn("increment")
   readonly id: string;
 
-  @Column({ length: 8 })
+  @Column({ length: 9 })
   cep: string;
 
   @Column({ length: 2 })
