@@ -24,7 +24,7 @@ const createSessionService = async (body: IUserLogin) => {
     throw new AppError("Invalid email or password");
   }
 
-  const passwordMatch = await compare(body.password, user.password!);
+  const passwordMatch = await compare(body.password, user.password);
 
   if (!passwordMatch) {
     throw new AppError("Invalid email or password");
@@ -32,14 +32,14 @@ const createSessionService = async (body: IUserLogin) => {
 
   const createdToken = jwt.sign(
     {
-      userId: user.id,
+      id: user?.id,
       isActive: user.isActive,
       isAdvertiser: user.isAdvertiser,
     },
     process.env.SECRET_KEY as string,
     {
       expiresIn: "24h",
-      subject: String(user.id),
+      subject: String(user?.id),
     }
   );
 
