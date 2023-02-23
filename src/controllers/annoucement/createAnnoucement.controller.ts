@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import createAnnoucementService from "../../services/annoucement/createAnnoucement.service";
+import createAnnoucementService from "../../services/annoucement/createAnnoucement.services";
 
 const createAnnoucementController = async (req: Request, res: Response) => {
   const { userId } = req.params;
