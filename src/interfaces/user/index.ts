@@ -6,7 +6,7 @@ export interface IUserRequest {
   password: string;
   cpf: string;
   cellPhone: string;
-  dateBirth: Date;
+  dateBirth: Date | string | number;
   description: string;
   isActive: boolean;
   createdAt: Date;
@@ -18,6 +18,15 @@ export interface IUserRequest {
 export interface IUser extends IUserRequest {
   id: number;
   addressId: number;
+}
+
+export interface IUserUpdate {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  cellPhone?: string;
+  dateBirth?: Date;
+  description?: string;
 }
 
 export interface IUserLogin {
