@@ -30,6 +30,9 @@ class User {
   @Column({ length: 16, unique: true })
   cellPhone: string;
 
+  @Column({ type: "timestamp" })
+  dateBirth: Date;
+
   @Column({ length: 350 })
   description: string;
 
