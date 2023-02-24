@@ -52,15 +52,13 @@ class User {
   @Column({ default: false })
   isAdvertiser: boolean;
 
-  @OneToOne((type) => Address, (user) => User, {
+  @OneToOne((type) => Address, (address) => address.user, {
+    onDelete: "CASCADE",
     eager: true,
   })
-  @JoinColumn()
   address: Address;
 
-  @OneToMany(() => Annoucements, (annoucement) => annoucement.user, {
-    eager: true,
-  })
+  @OneToMany(() => Annoucements, (annoucement) => annoucement.user)
   annoucements: Annoucements[];
 
   @OneToMany(() => Comments, (comment) => comment.user)

@@ -13,7 +13,7 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/users/address", authUserMiddleware, addressRoutes);
 app.use("/login", loginRoutes);
-app.use("/users", announcementeRoutes);
+app.use("/announcements", announcementeRoutes);
 app.use(handleErrorMidleware);
 
 export default app;

@@ -38,7 +38,7 @@ const updateAnnoucementService = async (
 
     if (include.includes(true)) {
       if (user.id === annoucement.user.id) {
-        await annoucementRepository.update(user.address.id, data);
+        await annoucementRepository.update(id, data);
         annoucement = await annoucementRepository.findOneOrFail({
           where: { annoucementId: id },
         });

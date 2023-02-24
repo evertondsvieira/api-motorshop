@@ -4,19 +4,12 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
 
 export default async function listDetailsUserService(id: string) {
-  try {
-    const userRepository = AppDataSource.getRepository(User);
+  const userRepository = AppDataSource.getRepository(User);
 
-    const user = await userRepository.findOneByOrFail({
-      id: id,
-    });
+  const user = await userRepository.findOneOrFail({
+    where: { id: id },
+    relations: { annoucements: true },
+  });
 
-    return user;
-  } catch (err) {
-    if (err instanceof EntityNotFoundError) {
-      throw new AppError("User not found", 404);
-    } else {
-      throw new AppError("Internal error", 500);
-    }
-  }
+  return user;
 }

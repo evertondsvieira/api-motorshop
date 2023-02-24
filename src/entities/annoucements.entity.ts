@@ -4,13 +4,10 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./user.entity";
 import { Comments } from "./comments.entity";
-
-export type annoucementRoles = "sale" | "auction";
-
-export type vehicleRoles = "car" | "motocycle";
 
 @Entity("annoucements")
 export class Annoucements {
@@ -28,7 +25,7 @@ export class Annoucements {
     enum: ["sale", "auction"],
     default: "sale",
   })
-  adType: annoucementRoles;
+  adType: string;
 
   @Column({ type: "int", width: 4 })
   year: number;
@@ -46,12 +43,13 @@ export class Annoucements {
     type: "enum",
     enum: ["car", "motocycle"],
   })
-  vehicleType: vehicleRoles;
+  vehicleType: string;
 
   @Column()
   coverImage: string;
 
   @ManyToOne(() => User, (user) => user.annoucements)
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @OneToMany(() => Comments, (comments) => comments.annoucements)
