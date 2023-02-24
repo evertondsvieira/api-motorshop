@@ -11,7 +11,11 @@ const announcementsRoutes = Router();
 announcementsRoutes.post("", authUserMiddleware, createAnnoucementController);
 announcementsRoutes.get("", listAnnoucementsController);
 announcementsRoutes.get("/:annoucementId", listDetailsAnnoucementController);
-announcementsRoutes.delete("/:annoucementId", deleteAnnouncementsController);
+announcementsRoutes.delete(
+  "/:annoucementId",
+  authUserMiddleware,
+  deleteAnnouncementsController
+);
 announcementsRoutes.patch(
   "/:annoucementId",
   authUserMiddleware,
