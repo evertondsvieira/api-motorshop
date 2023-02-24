@@ -1,8 +1,8 @@
 import { AppDataSource } from "../../data-source";
 import { Annoucements } from "../../entities/annoucements.entity";
 import { User } from "../../entities/user.entity";
-import { IAnnoucement } from "../../interfaces/annoucement";
 import { AppError } from "../../errors";
+import { IAnnoucement } from "../../interfaces/annoucement";
 
 const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
   const fieldsRequireds = [
@@ -15,11 +15,12 @@ const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
     "vehicleType",
     "coverImage",
   ];
+  const typeVehicle = ["motocycle", "car"];
+  const adType = ["sale", "auction"];
 
   const annoucementRepository = AppDataSource.getRepository(Annoucements);
   const userRepository = AppDataSource.getRepository(User);
-
-  const userFind = await userRepository.findOneBy({ id: userId });
+  const userFind = await userRepository.findOneByOrFail({ id: userId });
 
   fieldsRequireds.map((field) => {
     if (!Object.keys(body).includes(field)) {
@@ -27,10 +28,17 @@ const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
     }
   });
 
-  const annoucement = annoucementRepository.create({
-    ...body,
-    user: userFind!,
-  });
+  if (!typeVehicle.includes(body.vehicleType)) {
+    throw new AppError("value in field vehicleType is not valid");
+  }
+
+  if (!adType.includes(body.adType)) {
+    throw new AppError("value in field adType is not valid");
+  }
+
+  const annoucement = annoucementRepository.create(body);
+
+  annoucement.user = userFind;
 
   await annoucementRepository.save(annoucement);
 
