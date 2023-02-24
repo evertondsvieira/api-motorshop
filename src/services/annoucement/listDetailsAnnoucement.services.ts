@@ -4,21 +4,20 @@ import { AppError } from "../../errors";
 import { Annoucements } from "../../entities/annoucements.entity";
 
 const listDetailsAnnoucementsService = async (id: string) => {
-  try {
-    const annoucemntRequesty = AppDataSource.getRepository(Annoucements);
+  const annoucemntRequesty = AppDataSource.getRepository(Annoucements);
 
-    const annoucementsFind = await annoucemntRequesty.findOneByOrFail({
+  const annoucementsFind = await annoucemntRequesty.findOne({
+    where: {
       annoucementId: id,
-    });
+    },
+    relations: { user: true },
+  });
 
-    return annoucementsFind;
-  } catch (err) {
-    if (err instanceof EntityNotFoundError) {
-      throw new AppError("Annoucement not found", 404);
-    } else {
-      throw new AppError("Internal error", 500);
-    }
+  if (!annoucementsFind) {
+    throw new AppError("Annoucement not found", 404);
   }
+
+  return annoucementsFind;
 };
 
 export default listDetailsAnnoucementsService;
