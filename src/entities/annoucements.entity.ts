@@ -48,7 +48,7 @@ export class Annoucements {
   @Column()
   coverImage: string;
 
-  @ManyToOne(() => User, (user) => user.annoucements)
+  @ManyToOne(() => User, (user) => user.annoucements, { onDelete: "CASCADE" })
   @JoinColumn({ name: "user_id" })
   user: User;
 

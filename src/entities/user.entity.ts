@@ -58,7 +58,9 @@ class User {
   })
   address: Address;
 
-  @OneToMany(() => Annoucements, (annoucement) => annoucement.user)
+  @OneToMany(() => Annoucements, (annoucement) => annoucement.user, {
+    onDelete: "CASCADE",
+  })
   annoucements: Annoucements[];
 
   @OneToMany(() => Comments, (comment) => comment.user)
