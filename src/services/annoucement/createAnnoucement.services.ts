@@ -22,6 +22,10 @@ const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
   const userRepository = AppDataSource.getRepository(User);
   const userFind = await userRepository.findOneByOrFail({ id: userId });
 
+  if (userFind.isAdvertiser !== true) {
+    throw new Error("you must be a seller to post an announcement", 403);
+  }
+
   fieldsRequireds.map((field) => {
     if (!Object.keys(body).includes(field)) {
       throw new AppError(`${field} is a required field`);
