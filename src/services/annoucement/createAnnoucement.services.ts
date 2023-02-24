@@ -23,7 +23,7 @@ const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
   const userFind = await userRepository.findOneByOrFail({ id: userId });
 
   if (userFind.isAdvertiser !== true) {
-    throw new Error("you must be a seller to post an announcement", 403);
+    throw new AppError("you must be a seller to post an announcement", 403);
   }
 
   fieldsRequireds.map((field) => {
