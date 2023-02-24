@@ -10,12 +10,10 @@ const authUserMiddleware = (
   let token = req.headers.authorization;
 
   if (!token) {
-    throw new AppError("Missing authorization headers");
+    throw new AppError("Missing authorization headers", 401);
   }
 
   token = token.split(" ")[1];
-
-  console.log(process.env.SECRET_KEY);
 
   jwt.verify(token, process.env.SECRET_KEY as string, (error, decoded: any) => {
     if (error) {
