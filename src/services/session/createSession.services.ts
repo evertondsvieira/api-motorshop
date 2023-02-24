@@ -10,40 +10,44 @@ const createSessionService = async (body: IUserLogin) => {
   const fieldsRequireds = ["email", "password"];
   const UserRepository = AppDataSource.getRepository(User);
 
-  const user = await UserRepository.findOneBy({
-    email: body.email,
-  });
+  try {
+    const user = await UserRepository.findOneBy({
+      email: body.email,
+    });
 
-  fieldsRequireds.map((field) => {
-    if (!Object.keys(body).includes(field)) {
-      throw new AppError(`${field} is a required field`);
+    fieldsRequireds.map((field) => {
+      if (!Object.keys(body).includes(field)) {
+        throw new AppError(`${field} is a required field`);
+      }
+    });
+
+    if (!user) {
+      throw new AppError("Invalid email or password");
     }
-  });
 
-  if (!user) {
+    const passwordMatch = await compare(body.password, user.password);
+
+    if (!passwordMatch) {
+      throw new AppError("Invalid email or password");
+    }
+
+    const createdToken = jwt.sign(
+      {
+        id: user?.id,
+        isActive: user.isActive,
+        isAdvertiser: user.isAdvertiser,
+      },
+      process.env.SECRET_KEY as string,
+      {
+        expiresIn: "24h",
+        subject: String(user?.id),
+      }
+    );
+
+    return { token: createdToken };
+  } catch (e) {
     throw new AppError("Invalid email or password");
   }
-
-  const passwordMatch = await compare(body.password, user.password);
-
-  if (!passwordMatch) {
-    throw new AppError("Invalid email or password");
-  }
-
-  const createdToken = jwt.sign(
-    {
-      id: user?.id,
-      isActive: user.isActive,
-      isAdvertiser: user.isAdvertiser,
-    },
-    process.env.SECRET_KEY as string,
-    {
-      expiresIn: "24h",
-      subject: String(user?.id),
-    }
-  );
-
-  return { token: createdToken };
 };
 
 export default createSessionService;
