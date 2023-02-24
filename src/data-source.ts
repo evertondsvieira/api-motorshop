@@ -4,7 +4,7 @@ import { User } from "./entities/user.entity";
 import { Address } from "./entities/address.entity";
 import { Comments } from "./entities/comments.entity";
 import { Annoucements } from "./entities/annoucements.entity";
-import { initial1677159791624 } from "./migrations/1677159791624-initial";
+import { initial1677196713995 } from "./migrations/1677196713995-initial";
 
 const dataSourceConfig = (): DataSourceOptions => ({
   type: "postgres",
@@ -17,7 +17,7 @@ const dataSourceConfig = (): DataSourceOptions => ({
   synchronize: false,
 
   entities: [User, Address, Comments, Annoucements],
-  migrations: [initial1677159791624],
+  migrations: [initial1677196713995],
 });
 
 export const AppDataSource = new DataSource(dataSourceConfig());
