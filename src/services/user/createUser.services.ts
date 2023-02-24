@@ -17,6 +17,36 @@ export default async function createUserService(body: IUserRequest) {
     "address",
   ];
 
+  const arrayStates = [
+    "AC",
+    "AL",
+    "AP",
+    "AM",
+    "BA",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MT",
+    "MS",
+    "MG",
+    "PA",
+    "PB",
+    "PR",
+    "PE",
+    "PI",
+    "RJ",
+    "RN",
+    "RS",
+    "RO",
+    "RR",
+    "SC",
+    "SP",
+    "SE",
+    "TO",
+  ];
+
   const fieldsAddressRequireds = ["cep", "state", "city", "street", "number"];
   const userRepository = AppDataSource.getRepository(User);
 
@@ -31,6 +61,10 @@ export default async function createUserService(body: IUserRequest) {
       throw new AppError(`${field} is a required field`);
     }
   });
+
+  if (!arrayStates.includes(body.address.state)) {
+    throw new AppError(`${body.address.state} not a valid UF`);
+  }
 
   if (body.email) {
     const regex =
@@ -57,6 +91,23 @@ export default async function createUserService(body: IUserRequest) {
       throw new AppError("provide a valid cpf, in format XXX.XXX.XXX-XX");
     }
   }
+
+  const date = String(body.dateBirth);
+
+  let arrDate = date.split("/");
+  let strDate = "";
+  arrDate = arrDate.reverse();
+
+  if (parseInt(arrDate[1]) > 12 && parseInt(arrDate[1]) < 1) {
+    throw new AppError(
+      "Provide a datebirth in format dd/mm/aaaa or aaaa/mm/dd"
+    );
+  }
+
+  arrDate.map((el) => (strDate += `${el},`));
+
+  const newdate = new Date(strDate);
+  const datetime = newdate.toISOString();
 
   if (body.address.cep) {
     const regex = /^(\d{5}-\d{3})|(\d{8})$/;
@@ -99,6 +150,8 @@ export default async function createUserService(body: IUserRequest) {
   const address = addressRepository.create(body.address);
 
   await addressRepository.save(address);
+
+  body.dateBirth = datetime;
 
   const user = userRepository.create(body);
 
