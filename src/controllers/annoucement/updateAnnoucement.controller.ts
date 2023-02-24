@@ -7,8 +7,12 @@ export default async function updateAnnouncementController(
   res: Response
 ) {
   const { id: idUser } = req.user;
-  const { id } = req.params;
+  const { annoucementId } = req.params;
   const data = req.body;
-  const annoucement = await updateAnnoucementService(id, idUser, data);
+  const annoucement = await updateAnnoucementService(
+    annoucementId,
+    idUser,
+    data
+  );
   return res.status(200).json(instanceToPlain(annoucement));
 }
