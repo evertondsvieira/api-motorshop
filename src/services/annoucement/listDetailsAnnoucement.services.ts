@@ -7,7 +7,7 @@ const listDetailsAnnoucementsService = async (id: string) => {
   try {
     const annoucemntRequesty = AppDataSource.getRepository(Annoucements);
 
-    const annoucementsFind = await annoucemntRequesty.findOneBy({
+    const annoucementsFind = await annoucemntRequesty.findOneByOrFail({
       annoucementId: id,
     });
 
