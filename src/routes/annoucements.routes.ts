@@ -8,9 +8,20 @@ import authUserMiddleware from "../middlewares/auth.user.middleware";
 
 const announcementsRoutes = Router();
 
-announcementsRoutes.post("", authUserMiddleware, createAnnoucementController);
-announcementsRoutes.get("", listAnnoucementsController);
-announcementsRoutes.get("/:annoucementId", listDetailsAnnoucementController);
+announcementsRoutes.post(
+  "",
+  authUserMiddleware,
+  createAnnoucementController
+);
+announcementsRoutes.get(
+  "/all",
+  listAnnoucementsController
+);
+announcementsRoutes.get(
+  "",
+  authUserMiddleware,
+  listDetailsAnnoucementController
+);
 announcementsRoutes.delete(
   "/:annoucementId",
   authUserMiddleware,

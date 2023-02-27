@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import listAnnoucementsService from "../../services/annoucement/listAnnoucement.services";
 
 const listAnnoucementsController = async (req: Request, res: Response) => {
-  const { userId } = req.params;
-  const listAnnoucements = await listAnnoucementsService(userId);
+  const listAnnoucements = await listAnnoucementsService();
   return res.status(200).json(listAnnoucements);
 };
 
