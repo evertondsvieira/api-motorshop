@@ -52,6 +52,9 @@ export class Annoucements {
   @JoinColumn({ name: "user_id" })
   user: User;
 
-  @OneToMany(() => Comments, (comments) => comments.annoucements)
+  @OneToMany(() => Comments, (comments) => comments.annoucements, {
+    onDelete: "CASCADE",
+    eager: false,
+  })
   comments: Comments[];
 }
