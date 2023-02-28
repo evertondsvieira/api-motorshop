@@ -14,14 +14,16 @@ export class Comments {
   readonly commentId: string;
 
   @Column({ length: 450 })
-  comment: string;
+  text: string;
 
   @CreateDateColumn()
   createAt: Date;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, { onDelete: "CASCADE" })
   user: User;
 
-  @ManyToOne(() => Annoucements, (annoucements) => annoucements.comments)
+  @ManyToOne(() => Annoucements, (annoucements) => annoucements.comments, {
+    onDelete: "CASCADE",
+  })
   annoucements: Annoucements;
 }

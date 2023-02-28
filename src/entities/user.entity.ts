@@ -54,7 +54,7 @@ class User {
 
   @OneToOne((type) => Address, (address) => address.user, {
     onDelete: "CASCADE",
-    eager: true,
+    eager: false,
   })
   address: Address;
 
