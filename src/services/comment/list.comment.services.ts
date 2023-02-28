@@ -16,6 +16,7 @@ export default async function listCommentService(idAnnouncement: string) {
 
   const comments = await commentsRepository.find({
     where: { annoucements: announcement },
+    relations: { user: true, annoucements: false },
   });
 
   return comments;
