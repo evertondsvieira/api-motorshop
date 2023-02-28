@@ -11,7 +11,7 @@ import { Annoucements } from "./annoucements.entity";
 @Entity("comments")
 export class Comments {
   @PrimaryGeneratedColumn("increment")
-  readonly commentId: string;
+  readonly id: string;
 
   @Column({ length: 450 })
   text: string;
