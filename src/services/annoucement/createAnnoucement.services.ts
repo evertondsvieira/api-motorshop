@@ -27,7 +27,14 @@ const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
   }
 
   if (userFind.isAdvertiser !== true) {
-    throw new AppError("you must be a seller to post an announcement", 403);
+    throw new AppError("you must be a seller to post an announcement", 400);
+  }
+
+  if (body.price > 99999999999999999999.99) {
+    throw new AppError(
+      "price cannot be more than 99999999999999999999.99",
+      400
+    );
   }
 
   fieldsRequireds.map((field) => {
