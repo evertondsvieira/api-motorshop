@@ -4,24 +4,16 @@ import deleteAnnouncementsController from "../controllers/annoucement/deleteAnno
 import listAnnoucementsController from "../controllers/annoucement/listAnnoucements.controller";
 import listDetailsAnnoucementController from "../controllers/annoucement/listDetailsAnnoucement.controller";
 import updateAnnouncementController from "../controllers/annoucement/updateAnnoucement.controller";
+import createCommentController from "../controllers/comments/comment.create.controller";
+import listCommentController from "../controllers/comments/comment.list.controller";
 import authUserMiddleware from "../middlewares/auth.user.middleware";
 
 const announcementsRoutes = Router();
 
-announcementsRoutes.post(
-  "",
-  authUserMiddleware,
-  createAnnoucementController
-);
-announcementsRoutes.get(
-  "/all",
-  listAnnoucementsController
-);
-announcementsRoutes.get(
-  "",
-  authUserMiddleware,
-  listDetailsAnnoucementController
-);
+// Rotas CRUD anúncios
+announcementsRoutes.post("", authUserMiddleware, createAnnoucementController);
+announcementsRoutes.get("", listAnnoucementsController);
+announcementsRoutes.get("/:annoucementId", listDetailsAnnoucementController);
 announcementsRoutes.delete(
   "/:annoucementId",
   authUserMiddleware,
@@ -32,5 +24,16 @@ announcementsRoutes.patch(
   authUserMiddleware,
   updateAnnouncementController
 );
+
+// Rotas de comentários do anúncio
+// POST com autenticação requerida
+announcementsRoutes.post(
+  "/:idAnnouncement/comments",
+  authUserMiddleware,
+  createCommentController
+);
+
+// GET sem autenticação requerida
+announcementsRoutes.get("/:idAnnouncement/comments", listCommentController);
 
 export default announcementsRoutes;

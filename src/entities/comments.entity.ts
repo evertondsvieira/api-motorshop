@@ -11,17 +11,21 @@ import { Annoucements } from "./annoucements.entity";
 @Entity("comments")
 export class Comments {
   @PrimaryGeneratedColumn("increment")
-  readonly commentId: string;
+  readonly id: string;
 
   @Column({ length: 450 })
-  comment: string;
+  text: string;
 
   @CreateDateColumn()
   createAt: Date;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, {
+    onDelete: "CASCADE",
+  })
   user: User;
 
-  @ManyToOne(() => Annoucements, (annoucements) => annoucements.comments)
+  @ManyToOne(() => Annoucements, (annoucements) => annoucements.comments, {
+    onDelete: "CASCADE",
+  })
   annoucements: Annoucements;
 }
