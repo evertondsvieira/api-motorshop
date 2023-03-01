@@ -33,7 +33,7 @@ export class Annoucements {
   @Column({ type: "int", width: 6 })
   mileage: number;
 
-  @Column({ type: "decimal", precision: 7, scale: 2 })
+  @Column({ type: "decimal", precision: 23, scale: 2 })
   price: number;
 
   @Column({ length: 350 })
