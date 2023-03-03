@@ -3,7 +3,7 @@ import { User } from "../../entities/user.entity";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.SECRET_KEY;
 
 export async function resetPassword(
   id: string,
@@ -12,14 +12,22 @@ export async function resetPassword(
   password2: string
 ) {
   const userRepository = AppDataSource.getRepository(User);
-  const user = await userRepository.findOne({ where: { id } });
+  const user = await userRepository.findOne({ where: { id: id } });
 
   if (!user) {
     throw new Error("Id inválido");
   }
 
+  if (!password) {
+    throw new Error("field password is required");
+  }
+
+  if (!password2) {
+    throw new Error("field password2 is required");
+  }
+
   if (password !== password2) {
-    throw new Error("As senhas não coincidem");
+    throw new Error("password and password2 not match");
   }
 
   const secret = JWT_SECRET + user.password;
