@@ -21,7 +21,7 @@ export async function forgotPassword(email: string) {
   const secret = JWT_SECRET + user.password;
   const token = jwt.sign(payload, secret, { expiresIn: "10m" });
 
-  const resetLink = `http://localhost:3000/forgot-password/${user.id}/${token}`;
+  const resetLink = `http://localhost:3001/recover-password/${user.id}/${token}`;
 
   const mailOptions = {
     from: "Reset Password - Motors Shop",
