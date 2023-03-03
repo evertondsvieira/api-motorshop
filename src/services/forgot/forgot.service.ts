@@ -3,7 +3,7 @@ import { User } from "../../entities/user.entity";
 import { transporter } from "../../modules/mailer";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.SECRET_KEY;
 
 export async function forgotPassword(email: string) {
   const userRepository = AppDataSource.getRepository(User);
@@ -19,12 +19,12 @@ export async function forgotPassword(email: string) {
   };
 
   const secret = JWT_SECRET + user.password;
-  const token = jwt.sign(payload, secret, { expiresIn: "5m" });
+  const token = jwt.sign(payload, secret, { expiresIn: "10m" });
 
-  const resetLink = `http://localhost:3000/reset-password/${user.id}/${token}`;
+  const resetLink = `http://localhost:3000/forgot-password/${user.id}/${token}`;
 
   const mailOptions = {
-    from: "vertquall@gmail.com",
+    from: "Reset Password - Motors Shop",
     to: email,
     subject: "Resetar senha",
     html: `<p>Para resetar a sua senha, clique neste link: <a href="${resetLink}">${resetLink}</a></p>`,
