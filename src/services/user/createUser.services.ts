@@ -75,14 +75,14 @@ export default async function createUserService(body: IUserRequest) {
     }
   }
 
-  if (body.cellPhone) {
-    const regex =
-      /(10)|([1-9][1-9])?(?:(10)|([1-9][1-9])(9[0-9]{4})|([1-9]{2})(9)([0-9]{4}))([0-9]{4})/g;
+  // if (body.cellPhone) {
+  //   const regex =
+  //     /(10)|([1-9][1-9])?(?:(10)|([1-9][1-9])(9[0-9]{4})|([1-9]{2})(9)([0-9]{4}))([0-9]{4})/g;
 
-    if (!regex.test(body.cellPhone)) {
-      throw new AppError("provide a valid phone, in format (XX) 9XXXX-XXXX");
-    }
-  }
+  //   if (!regex.test(body.cellPhone)) {
+  //     throw new AppError("provide a valid phone, in format (XX) 9XXXX-XXXX");
+  //   }
+  // }
 
   if (body.cpf) {
     const regex = /^(\d{3}\.){2}\d{3}-\d{2}$/g;
