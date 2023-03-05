@@ -5,7 +5,9 @@ import listAnnoucementsController from "../controllers/annoucement/listAnnouceme
 import listDetailsAnnoucementController from "../controllers/annoucement/listDetailsAnnoucement.controller";
 import updateAnnouncementController from "../controllers/annoucement/updateAnnoucement.controller";
 import createCommentController from "../controllers/comments/comment.create.controller";
+import deleteCommentController from "../controllers/comments/comment.delete.controller";
 import listCommentController from "../controllers/comments/comment.list.controller";
+import updateCommentController from "../controllers/comments/comment.update.controller";
 import authUserMiddleware from "../middlewares/auth.user.middleware";
 
 const announcementsRoutes = Router();
@@ -31,6 +33,20 @@ announcementsRoutes.post(
   "/:idAnnouncement/comments",
   authUserMiddleware,
   createCommentController
+);
+
+// PATCH com autenticação requerida
+announcementsRoutes.patch(
+  "/:idAnnouncement/comments/:idComment",
+  authUserMiddleware,
+  updateCommentController
+);
+
+// DELETE com autenticação requerida
+announcementsRoutes.delete(
+  "/:idAnnouncement/comments/:idComment",
+  authUserMiddleware,
+  deleteCommentController
 );
 
 // GET sem autenticação requerida
