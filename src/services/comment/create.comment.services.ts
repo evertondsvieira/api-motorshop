@@ -41,7 +41,10 @@ async function createCommentService(
 
   await commentRepository.save(comment);
 
-  return comment;
+  const resComment = await commentRepository.findOne({
+    where: { id: comment.id },
+  });
+  return resComment;
 }
 
 export default createCommentService;
