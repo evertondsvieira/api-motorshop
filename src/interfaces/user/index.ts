@@ -25,7 +25,7 @@ export interface IUserUpdate {
   email?: string;
   cpf?: string;
   cellPhone?: string;
-  dateBirth?: Date;
+  dateBirth?: string;
   description?: string;
 }
 
