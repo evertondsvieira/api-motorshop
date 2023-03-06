@@ -4,7 +4,7 @@ import { User } from "./entities/user.entity";
 import { Address } from "./entities/address.entity";
 import { Comments } from "./entities/comments.entity";
 import { Annoucements } from "./entities/annoucements.entity";
-import { initialMigration1677691523873 } from "./migrations/1677691523873-initialMigration";
+import { initialMigration1677677803015 } from "./migrations/1677677803015-initialMigration";
 
 const dataSourceConfig = (): DataSourceOptions => ({
   type: "postgres",
@@ -14,9 +14,11 @@ const dataSourceConfig = (): DataSourceOptions => ({
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   logging: true,
-  synchronize: false,
+  synchronize: true,
   entities: [User, Address, Comments, Annoucements],
-  migrations: [initialMigration1677691523873],
+  migrations: [
+    initialMigration1677677803015
+  ],
 });
 
 export const AppDataSource = new DataSource(dataSourceConfig());

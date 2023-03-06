@@ -43,6 +43,15 @@ const createAnnoucementService = async (body: IAnnoucement, userId: string) => {
     }
   });
 
+  if (body.coverImage.length === 0) {
+    throw new AppError(`coverImage is a required field`);
+  }
+
+  // if (!body.images || body.images.length === 0) {
+  //   body.images = [];
+  //   body.images.push(body.coverImage);
+  // }
+
   if (!typeVehicle.includes(body.vehicleType)) {
     throw new AppError("value in field vehicleType is not valid");
   }
