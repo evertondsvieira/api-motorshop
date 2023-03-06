@@ -8,7 +8,7 @@ export default async function listDetailsUserService(id: string) {
 
   const user = await userRepository.findOne({
     where: { id: id },
-    relations: { annoucements: true },
+    relations: { annoucements: true, address: true },
   });
 
   if (!user) {
