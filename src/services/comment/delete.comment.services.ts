@@ -6,12 +6,8 @@ import { AppError } from "../../errors";
 
 export default async function deleteCommentService(
   id: string,
-  idAnnouncement: string,
   idComment: string
 ) {
-  console.log(id);
-  console.log(idAnnouncement);
-  console.log(idComment);
   const commentRepository = AppDataSource.getRepository(Comments);
   const adRepository = AppDataSource.getRepository(Annoucements);
   const userRepository = AppDataSource.getRepository(User);
@@ -19,15 +15,9 @@ export default async function deleteCommentService(
     where: { id: idComment },
     relations: { user: true },
   });
-  console.log(comment);
   const user = await userRepository.findOne({
     where: { id: id },
   });
-  console.log(user);
-  const ad = await adRepository.findOne({
-    where: { annoucementId: idAnnouncement },
-  });
-  console.log(ad);
 
   if (id !== comment?.user.id) {
     throw new AppError("Comment not found", 404);
@@ -35,10 +25,6 @@ export default async function deleteCommentService(
 
   if (!user) {
     throw new AppError("User not found", 404);
-  }
-
-  if (!ad) {
-    throw new AppError("Announcement not found", 404);
   }
 
   return await commentRepository.delete(idComment);
