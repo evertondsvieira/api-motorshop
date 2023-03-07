@@ -3,18 +3,18 @@ import { EntityNotFoundError } from "typeorm";
 import { AppError } from "../../errors";
 import { Annoucements } from "../../entities/annoucements.entity";
 
-
 const listAnnoucementsService = async () => {
-    try {
-        const annoucementRepository = AppDataSource.getRepository(Annoucements);
+  try {
+    const annoucementRepository = AppDataSource.getRepository(Annoucements);
 
-        const announcementsFind = await annoucementRepository.find()
+    const announcementsFind = await annoucementRepository.find({
+      relations: { user: true },
+    });
 
-        return announcementsFind
+    return announcementsFind;
+  } catch (err) {
+    throw new AppError("Internal error", 500);
+  }
+};
 
-    } catch (err) {
-        throw new AppError("Internal error", 500);
-    }
-}
-
-export default listAnnoucementsService
+export default listAnnoucementsService;
