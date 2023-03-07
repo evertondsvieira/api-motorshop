@@ -9,6 +9,7 @@ import announcementsRoutes from "./routes/annoucements.routes";
 import addressRoutes from "./routes/address.routes";
 import authUserMiddleware from "./middlewares/auth.user.middleware";
 import routerResetPassword from "./routes/forgot.routes";
+import commentsRoutes from "./routes/comment.routes";
 const app = express();
 
 app.use((req, res, next) => {
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
   app.use("/users/address", authUserMiddleware, addressRoutes);
   app.use("/login", loginRoutes);
   app.use("/announcements", announcementsRoutes);
+  app.use("/comments", commentsRoutes);
   app.use("/forgot-password", routerResetPassword);
   app.use(handleErrorMidleware);
   next();

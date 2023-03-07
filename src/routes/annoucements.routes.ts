@@ -35,20 +35,6 @@ announcementsRoutes.post(
   createCommentController
 );
 
-// PATCH com autenticação requerida
-announcementsRoutes.patch(
-  "/:idAnnouncement/comments/:idComment",
-  authUserMiddleware,
-  updateCommentController
-);
-
-// DELETE com autenticação requerida
-announcementsRoutes.delete(
-  "/:idAnnouncement/comments/:idComment",
-  authUserMiddleware,
-  deleteCommentController
-);
-
 // GET sem autenticação requerida
 announcementsRoutes.get("/:idAnnouncement/comments", listCommentController);
 
