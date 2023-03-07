@@ -8,11 +8,9 @@ import { IComment } from "../../interfaces/comment";
 export default async function updateCommentService(
   data: IComment,
   id: string,
-  idAnnouncement: string,
   idComment: string
 ) {
   const commentRepository = AppDataSource.getRepository(Comments);
-  const adRepository = AppDataSource.getRepository(Annoucements);
   const userRepository = AppDataSource.getRepository(User);
   const comment = await commentRepository.findOne({
     where: { id: idComment },
@@ -20,9 +18,6 @@ export default async function updateCommentService(
   });
   const user = await userRepository.findOne({
     where: { id: id },
-  });
-  const ad = await adRepository.findOne({
-    where: { annoucementId: idAnnouncement },
   });
 
   if (Object.keys(data).length > 0) {
@@ -42,10 +37,6 @@ export default async function updateCommentService(
 
       if (!user) {
         throw new AppError("User not found", 404);
-      }
-
-      if (!ad) {
-        throw new AppError("Announcement not found", 404);
       }
     }
   }
