@@ -7,14 +7,10 @@ export default async function updateCommentController(
   res: Response
 ) {
   const { id } = req.user;
-  const { idAnnouncement } = req.params;
-  const { idComment } = req.params;
+  const { id: idComment } = req.params;
+  console.log(id);
+  console.log(idComment);
   const data = req.body;
-  const comment = await updateCommentService(
-    data,
-    id,
-    idAnnouncement,
-    idComment
-  );
+  const comment = await updateCommentService(data, id, idComment);
   return res.status(201).json(instanceToPlain(comment));
 }
