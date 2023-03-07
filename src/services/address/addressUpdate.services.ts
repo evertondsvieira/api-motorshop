@@ -7,7 +7,10 @@ import { IAddress } from "../../interfaces/address";
 export default async function addressUpdateService(id: string, data: IAddress) {
   const addressRepository = AppDataSource.getRepository(Address);
   const userRepository = AppDataSource.getRepository(User);
-  let user = await userRepository.findOne({ where: { id: id } });
+  let user = await userRepository.findOne({
+    where: { id: id },
+    relations: { address: true },
+  });
 
   if (Object.keys(data).length > 0) {
     const fields = ["cep", "city", "complement", "state", "street", "number"];
@@ -32,12 +35,19 @@ export default async function addressUpdateService(id: string, data: IAddress) {
 
       if (user) {
         await addressRepository.update(user.address.id, data);
-        user = await userRepository.findOne({ where: { id: id } });
+        const resUser = await userRepository.findOne({
+          where: { id: user?.id },
+          relations: { address: true },
+        });
+        return resUser;
       }
     }
-
-    return user?.address;
   }
 
-  return user?.address;
+  const resUser = await userRepository.findOne({
+    where: { id: user?.id },
+    relations: { address: true },
+  });
+
+  return resUser;
 }
