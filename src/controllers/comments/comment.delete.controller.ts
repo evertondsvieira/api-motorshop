@@ -7,11 +7,7 @@ export default async function deleteCommentController(
   res: Response
 ) {
   const { id } = req.user;
-  const { idAnnouncement } = req.params;
-  const { idComment } = req.params;
-  console.log(id);
-  console.log(idAnnouncement);
-  console.log(idComment);
-  const comment = await deleteCommentService(id, idAnnouncement, idComment);
+  const { id: idComment } = req.params;
+  const comment = await deleteCommentService(id, idComment);
   return res.status(204).json(instanceToPlain(comment));
 }
