@@ -24,6 +24,31 @@ const updateUserService = async (data: IUserUpdate, id: string) => {
     delete data.cpf;
   }
 
+  if (data.cpf) {
+    const exist = await userRepository.findOne({ where: { cpf: data.cpf } });
+    if (exist) {
+      throw new AppError("CPF already exists", 400);
+    }
+  }
+
+  if (data.email) {
+    const exist = await userRepository.findOne({
+      where: { email: data.email },
+    });
+    if (exist) {
+      throw new AppError("Email already exists", 400);
+    }
+  }
+
+  if (data.cellPhone) {
+    const exist = await userRepository.findOne({
+      where: { cellPhone: data.cellPhone },
+    });
+    if (exist) {
+      throw new AppError("Cellphone already exists", 400);
+    }
+  }
+
   const date = String(data.dateBirth);
 
   let arrDate = date.split("/");
