@@ -6,6 +6,8 @@
   "author": "grupo32-t12-paulo",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs"
   },
